@@ -55,7 +55,7 @@ bool SerialManager::initializeSerialPorts()
     SerialGPS1.addMemoryForWrite(gps1TxBuffer, sizeof(gps1TxBuffer));
 
     // GPS2 Serial - use class member buffers
-    SerialGPS2.begin(BAUD_GPS);
+    SerialGPS2.begin(BAUD_RS232);
     SerialGPS2.addMemoryForRead(gps2RxBuffer, sizeof(gps2RxBuffer));
     SerialGPS2.addMemoryForWrite(gps2TxBuffer, sizeof(gps2TxBuffer));
 
