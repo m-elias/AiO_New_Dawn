@@ -234,7 +234,8 @@ void taskGPS2Serial() {
         break;
 
       case CHECKSUM1:
-        SerialRS232.print(checkSum, HEX);  // write the checksum character
+        if (checkSum < 0x10) SerialRS232.print('0');  // zero-pad so checksum is always 2 hex digits
+        SerialRS232.print(checkSum, HEX);  // write the checksum character(s)
         //Serial.print(checkSum, HEX);      // also echo to main serial for logging
         state = CHECKSUM2;
         break;
