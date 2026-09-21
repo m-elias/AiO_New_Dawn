@@ -185,6 +185,7 @@ float AutosteerProcessor::rowSenseProcess(float targetAngle) {
     if (now - lastUpdate >= 10) {   // Update 100Hz (every 10ms)
     lastUpdate = now;
     int rawSignal = analogRead(hardwareManager.getKickoutAPin());
+    // for summed row sense, input is setup for 0-12V, row sense is 0.9-3.5V
 
     static float aveSignal = 0.0f;
     aveSignal = aveSignal * 0.9f + rawSignal * 0.1f; // Simple moving average
