@@ -357,6 +357,37 @@ void LEDManagerFSM::testLEDs() {
 }
 
 void LEDManagerFSM::updateAll() {
+    //const float minAlpha = 0.01f;  // Minimum alpha for RSSI scaling, heavy filtering
+    //const float maxAlpha = 0.9f;   // Maximum alpha for RSSI scaling, fast response
+    //const float sensitivity = 200.0f; // Sensitivity factor for alpha scaling, higher is less sensitive
+    //static uint16_t filteredRSSI = 0;
+
+    uint16_t rawRSSI = analogRead(A14);
+
+    /*if (abs(rawRSSI - filteredRSSI) > 250) {
+        filteredRSSI = rawRSSI;
+    } else {
+        filteredRSSI = (filteredRSSI * 24 + rawRSSI) / 25;
+    }*/
+
+    //uint16_t rssiDiff = abs(rawRSSI - filteredRSSI);
+    //float dynmicAlpha = constrain((rssiDiff / sensitivity), minAlpha, maxAlpha);
+
+    //float error = constrain(abs(rawRSSI - filteredRSSI) / sensitivity, 0.0f, 1.0f);
+    //float dynmicAlpha = minAlpha + ((error * error) * (maxAlpha - minAlpha));
+    
+    //filteredRSSI = (dynmicAlpha * rawRSSI) + ((1.0f - dynmicAlpha) * filteredRSSI);
+
+    Serial.print(">rawRSSI:"); Serial.println(rawRSSI);
+    Serial.println(">zero:0");
+    //Serial.print(",filteredRSSI:"); Serial.print(filteredRSSI); Serial.print(",diff:"); Serial.println(int(filteredRSSI) - int(rawRSSI));
+    
+    if (pwm) {
+        pwm->setPin(8, rawRSSI, true);
+        delayMicroseconds(50);
+    }
+
+
     // Power/Ethernet LED state determination
     static bool bootComplete = false;
     static uint32_t bootTime = millis();

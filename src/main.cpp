@@ -228,7 +228,8 @@ void taskKickoutSendPGN250() {
 
 void setup()
 {
-  delay(5000); // delay for time to start monitor
+  pinMode(A14, INPUT_DISABLE); // prep for analog read on pin A14
+  //delay(5000); // delay for time to start monitor
   Serial.begin(115200);
 
   Serial.print("\r\n\n=== Teensy 4.1 AiO-NG-v6 New Dawn v");
